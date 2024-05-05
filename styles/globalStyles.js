@@ -2,6 +2,13 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   
+  @font-face {
+    font-family: "Nanum Gothic Coding", monospace;
+    src: url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
   *{
     box-sizing: border-box;
     
@@ -24,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none !important;
+    color: black
   }
 
   ol, ul{
