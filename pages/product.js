@@ -4,7 +4,7 @@ import Show from "@/components/Show";
 import { useState } from "react";
 import styled from "styled-components";
 
-function product() {
+function Product() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const menuArr = [
@@ -39,7 +39,7 @@ function product() {
   );
 }
 
-export default product;
+export default Product;
 
 const Container = styled.div`
   width: 100%;
