@@ -12,7 +12,6 @@ function Select() {
 
   const onClickShowItem = (index) => {
     setActiveIndex(index + 1);
-    console.log(activeIndex);
   };
 
   return (
@@ -29,8 +28,8 @@ function Select() {
           <Items>
             {selectArr.map((item, index) => (
               <FlexBox key={index} activeIndex={activeIndex}>
-                {item.items.map((el) => (
-                  <AccessoryItem>{el}</AccessoryItem>
+                {item.items.map((el, index) => (
+                  <AccessoryItem key={index}>{el}</AccessoryItem>
                 ))}
               </FlexBox>
             ))}
