@@ -1,12 +1,14 @@
 import Check from "@/components/Check";
+import Wear from "@/components/models/Wear";
 import Select from "@/components/Select";
 import Show from "@/components/Show";
-import { useState } from "react";
+import { CameraControls, Environment, OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { Suspense, useState } from "react";
 import styled from "styled-components";
 
 function Product() {
   const [activeIndex, setActiveIndex] = useState(0);
-
   const menuArr = [
     { name: "SELECT", component: <Select /> },
     { name: "CHECK", component: <Check /> },
@@ -18,7 +20,22 @@ function Product() {
   };
   return (
     <Container>
-      <Section>{/* 3d 모델링 */}</Section>
+      <Section>
+        <Model>
+          <Canvas>
+            <CameraControls minPolarAngle={0} />
+            <OrbitControls target={[0, -1, 0]} autoRotate />
+            <ambientLight intensity={Math.PI / 2} />
+            <group position={[0, -1, 0]}>
+              <Suspense>
+                <Wear />
+              </Suspense>
+            </group>
+            <Environment preset="forest" background blur={1} />
+            <axesHelper args={[5]} />
+          </Canvas>
+        </Model>
+      </Section>
       <Section>
         <Menu>
           <TabMenu>
@@ -98,4 +115,9 @@ const CtaButtonStyle = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
   padding: 0px 4rem;
+`;
+
+const Model = styled.div`
+  width: 100%;
+  height: 100%;
 `;
