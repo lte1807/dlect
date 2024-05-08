@@ -22,16 +22,16 @@ function Product() {
     <Container>
       <Section>
         <Model>
-          <Canvas>
-            <CameraControls minPolarAngle={0} />
-            <OrbitControls target={[0, -1, 0]} autoRotate />
+          <Canvas camera={{ fov: 100 }}>
+            <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} />
+            <OrbitControls target={[0, -0, 0]} />
             <ambientLight intensity={Math.PI / 2} />
-            <group position={[0, -1, 0]}>
+            <group position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
               <Suspense>
                 <Wear />
               </Suspense>
             </group>
-            <Environment preset="forest" background blur={1} />
+            <Environment preset="apartment" background />
             <axesHelper args={[5]} />
           </Canvas>
         </Model>
