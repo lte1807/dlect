@@ -23,6 +23,6 @@ const Container = styled.div`
 
 const HeaderStyle = styled.div`
   width: 100%;
-  height: 10%;
+  height: 7%;
   border-bottom: 1px solid #d5d5d5;
 `;
