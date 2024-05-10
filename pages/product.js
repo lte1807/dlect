@@ -1,42 +1,49 @@
 import Check from "@/components/Check";
 import Wear from "@/components/models/Wear";
+import Zipper from "@/components/models/Zipper";
 import Select from "@/components/Select";
 import Show from "@/components/Show";
-import {
-  Backdrop,
-  CameraControls,
-  Environment,
-  OrbitControls,
-  Sky,
-  Sparkles,
-  Stars,
-} from "@react-three/drei";
+import { CameraControls, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useState } from "react";
 import styled from "styled-components";
 
 function Product() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const menuArr = [
-    { name: "SELECT", component: <Select /> },
-    { name: "CHECK", component: <Check /> },
-    { name: "SHOW", component: <Show /> },
-  ];
+  const [model, setModel] = useState("");
 
   const ClickMenu = (index) => {
     setActiveIndex(index);
   };
+
+  const onSetModel = (url) => {
+    setModel(url);
+  };
+
+  const menuArr = [
+    { name: "SELECT", component: <Select updateModel={onSetModel} /> },
+    { name: "CHECK", component: <Check /> },
+    { name: "SHOW", component: <Show /> },
+  ];
   return (
     <Container>
       <Section>
         <Model>
           <Canvas camera={{ fov: 100 }} style={{ background: "#e6e6e5" }}>
-            <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} />
-            <OrbitControls target={[0, -0, 0]} />
-            <ambientLight intensity={Math.PI / 2} />
-            <group position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
-              <Suspense>
-                <Wear />
+            {/* <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} /> */}
+            <OrbitControls target={[0, 0, 0]} />
+            {/* <ambientLight intensity={Math.PI / 2} /> */}
+            <group>
+              <Suspense fallback={null}>
+                <mesh position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
+                  <Wear />
+                </mesh>
+                {model && (
+                  <mesh position={[-0.1, -4, 1]} scale={[0.2, 0.2, 0.01]}>
+                    <Zipper model={model} />
+                    <meshStandardMaterial attach="material" color={0xa3b18a} />
+                  </mesh>
+                )}
               </Suspense>
             </group>
             <Environment preset="apartment" background />

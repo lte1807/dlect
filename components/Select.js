@@ -7,11 +7,21 @@ const selectArr = [
   { name: "size", items: ["G", "H", "I"] },
 ];
 
-function Select() {
+const modelArr = [
+  "/glb/zipper_print_blue.gltf",
+  "/glb/zipper_print_pink.gltf",
+  "",
+];
+
+function Select({ updateModel }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const onClickShowItem = (index) => {
     setActiveIndex(index + 1);
+  };
+
+  const onClickSelectItem = (index) => {
+    updateModel(modelArr[index]);
   };
 
   return (
@@ -29,7 +39,12 @@ function Select() {
             {selectArr.map((item, index) => (
               <FlexBox key={index} activeIndex={activeIndex}>
                 {item.items.map((el, index) => (
-                  <AccessoryItem key={index}>{el}</AccessoryItem>
+                  <AccessoryItem
+                    key={index}
+                    onClick={() => onClickSelectItem(index)}
+                  >
+                    {el}
+                  </AccessoryItem>
                 ))}
               </FlexBox>
             ))}
