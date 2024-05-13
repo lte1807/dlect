@@ -30,9 +30,8 @@ function Product() {
       <Section>
         <Model>
           <Canvas camera={{ fov: 100 }} style={{ background: "#e6e6e5" }}>
-            {/* <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} /> */}
             <OrbitControls target={[0, 0, 0]} />
-            {/* <ambientLight intensity={Math.PI / 2} /> */}
+
             <group>
               <Suspense fallback={null}>
                 <mesh position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
@@ -50,6 +49,7 @@ function Product() {
             <axesHelper args={[5]} />
           </Canvas>
         </Model>
+        <ResetButton>초기화</ResetButton>
       </Section>
       <Section>
         <Menu>
@@ -135,4 +135,9 @@ const CtaButtonStyle = styled.div`
 const Model = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+const ResetButton = styled.div`
+  position: fixed;
+  bottom: 20px;
 `;
