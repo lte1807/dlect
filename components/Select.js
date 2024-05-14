@@ -67,9 +67,7 @@ const RibbonAnimation = keyframes`
     transform: translateY(0px);
 
   }
-  100% {
-
-  }
+  
 `;
 
 const SelectContainer = styled.div`
