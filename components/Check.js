@@ -1,97 +1,94 @@
 import React, { useState } from "react";
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
+import Modal from "./modal/Modal";
 
 function Check() {
   const [isOpen, setIsOpen] = useState(false);
-  const openClick = () => {
-    setIsOpen(!isOpen);
-  };
+  
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
 
   return (
     <Container>
       <Wrapper>
-        <Information>
-          product
-          <br /> Information
-        </Information>
-        <ModelCut onClick={openClick}>model cut</ModelCut>
+        <ProductionInfo>
+          product infomation
+        </ProductionInfo>
+        <ReivewButton onClick={openModal}>
+          review
+        </ReivewButton>
+        <Modal isOpen={isOpen} onClose={closeModal}>
+          <button onClick={closeModal}>Close</button>
+          <h2>This is a Modal</h2>
+          <p>You can put any content you like in here.</p> 
+        </Modal>
       </Wrapper>
-      <Flex>
-        <Review>review</Review>
-      </Flex>
-      {isOpen && (
-        <ModalContainer>
-          <CloseModal onClick={openClick}>닫기</CloseModal>
-        </ModalContainer>
-      )}
     </Container>
   );
 }
 
 export default Check;
 
+const HoverAnimation = keyframes`
+  0% {
+    width: 50%;
+    height: 90%;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+  30% {
+    width: 60%;
+    height: 100%;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+  100% {
+    width: 60%;
+    height: 100%;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+`;
+
+
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding: 20px;
-`;
-
-const Information = styled.div`
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid black;
-  width: 300px;
-  height: 180px;
-  border-radius: 20px;
-`;
-
-const ModelCut = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid black;
-  width: 300px;
-  height: 180px;
-  border-radius: 20px;
-`;
+  padding: 3rem 3rem;
+`
 
 const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-`;
+  gap: 2rem;
 
-const Review = styled.div`
+  
+`
+const CheckItemStyle = styled.div`
+  width: 40%;
+  height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px solid black;
-  border-radius: 20px;
-  width: 620px;
-  height: 70px;
-`;
+  border-radius: 2rem;
+  
+  &:hover,
+  &:focus {
+      animation: ${HoverAnimation} 1s forwards;
+  }
+    
 
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-`;
+    
+`
 
-const ModalContainer = styled.div`
-  position: fixed;
-  top: 12%;
-  left: 5%;
-  width: 380px;
-  height: 700px;
-  z-index: 1000;
-  border: 2px solid gray;
-  background-color: white;
-`;
-
-const CloseModal = styled.div`
-  text-align: right;
-`;
+const ProductionInfo = styled(CheckItemStyle)`
+  
+  
+`
+const ReivewButton = styled(CheckItemStyle)`
+  
+`
