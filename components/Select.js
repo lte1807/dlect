@@ -14,10 +14,11 @@ const modelArr = [
 ];
 
 function Select({ updateModel }) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   const onClickShowItem = (index) => {
-    setActiveIndex(index + 1);
+    setActiveIndex(index);
+    console.log(activeIndex);
   };
 
   const onClickSelectItem = (index) => {
@@ -29,7 +30,7 @@ function Select({ updateModel }) {
       <Wrapper>
         <Left>
           {selectArr.map((select, index) => (
-            <Accessory key={index} onClick={() => onClickShowItem(index)}>
+            <Accessory key={index} clicked={activeIndex === index} onClick={() => onClickShowItem(index)}>
               {select.name}
             </Accessory>
           ))}
@@ -115,12 +116,7 @@ const Accessory = styled.div`
   border-radius: 50%;
   justify-content: center;
   align-items: center;
-  &:hover {
-    width: 6rem;
-    height: 6rem;
-    font-size: large;
-    font-weight: bold;
-  }
+  background-color: ${props => (props.clicked ? '#E5E5E5' : "white")}
 `;
 
 const Items = styled.div`
@@ -150,7 +146,7 @@ const AccessoryItem = styled.div`
 const FlexBox = styled.div`
   display: flex;
   gap: 2rem;
-  &:nth-child(${(props) => props.activeIndex}) {
+  &:nth-child(${(props) => props.activeIndex+1}) {
     visibility: visible;
     :nth-child(1) {
       animation: ${RibbonAnimation} 1.2s ease-in-out;

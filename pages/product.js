@@ -3,7 +3,7 @@ import Wear from "@/components/models/Wear";
 import Zipper from "@/components/models/Zipper";
 import Select from "@/components/Select";
 import Show from "@/components/Show";
-import { CameraControls, Environment, OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useState } from "react";
 import styled from "styled-components";
@@ -49,21 +49,20 @@ function Product() {
             <axesHelper args={[5]} />
           </Canvas>
         </Model>
-        <ResetButton>초기화</ResetButton>
       </Section>
       <Section>
         <Menu>
           <TabMenu>
             {menuArr.map((menu, index) => (
-              <MenuStyle key={index} onClick={() => ClickMenu(index)}>
+              <MenuStyle clicked={activeIndex === index} key={index} onClick={() => ClickMenu(index)}>
                 {menu.name}
               </MenuStyle>
             ))}
           </TabMenu>
           <SelectItems>{menuArr[activeIndex].component}</SelectItems>
           <CtaButton>
-            <CtaButtonStyle>장바구니</CtaButtonStyle>
-            <CtaButtonStyle>구매하기</CtaButtonStyle>
+            <CtaButtonStyle>Cart</CtaButtonStyle>
+            <CtaButtonStyle>Buy</CtaButtonStyle>
           </CtaButton>
         </Menu>
       </Section>
@@ -105,10 +104,7 @@ const MenuStyle = styled.div`
   border-top: 0;
   border-radius: 0 0 1rem 1rem;
   padding: 0.5rem 2rem;
-
-  &:hover {
-    background-color: #e5e5e5;
-  }
+  background-color: ${props => props.clicked ? "#e5e5e5;" : "white"} 
 `;
 
 const SelectItems = styled.div`
@@ -135,9 +131,4 @@ const CtaButtonStyle = styled.div`
 const Model = styled.div`
   width: 100%;
   height: 100%;
-`;
-
-const ResetButton = styled.div`
-  position: fixed;
-  bottom: 20px;
 `;
