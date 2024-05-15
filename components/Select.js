@@ -106,7 +106,8 @@ const Right = styled.div`
   overflow: hidden;
 `;
 
-const Accessory = styled.div`
+const Accessory = styled.button`
+  color: white;
   width: 5rem;
   height: 5rem;
   display: flex;
@@ -114,7 +115,7 @@ const Accessory = styled.div`
   border-radius: 50%;
   justify-content: center;
   align-items: center;
-  background-color: ${props => (props.clicked ? '#E5E5E5' : "white")}
+  background-color: ${props => (props.clicked ? 'black;' : "black;")}
 `;
 
 const Items = styled.div`
