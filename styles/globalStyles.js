@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none !important;
-    color: black
+    color: black;
   }
 
   ol, ul{
@@ -39,7 +39,19 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button {
+    position: relative;
     cursor: pointer;
+    box-shadow: 0 0 0 0.3px #ffffff  inset,
+        0 0 0 0.1px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 rgba(0, 0, 0, .9),
+        0 8px 0 1px rgba(0,0,0,.4),
+        0 8px 8px 1px rgba(0,0,0,0.5);
+    &:active {
+      top: 7px;
+      box-shadow: 0 0 0 1px #6191C2 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 0 0 1px rgba(0,0,0,0.4);
+    }
   }
 
   input {

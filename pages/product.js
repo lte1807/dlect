@@ -72,6 +72,7 @@ function Product() {
 
 export default Product;
 
+
 const Container = styled.div`
   width: 100%;
   height: 93%;
@@ -97,14 +98,16 @@ const TabMenu = styled.div`
   gap: 2rem;
 `;
 
-const MenuStyle = styled.div`
+const MenuStyle = styled.button`
+  color: white;
   font-size: 1rem;
   font-weight: bold;
   border: 1px solid black;
   border-top: 0;
-  border-radius: 0 0 1rem 1rem;
+  border-radius: 1rem;
   padding: 0.5rem 2rem;
-  background-color: ${props => props.clicked ? "#e5e5e5;" : "white"} 
+  background-color: ${props => props.clicked ? "black;" : "black;"}
+  
 `;
 
 const SelectItems = styled.div`
@@ -117,15 +120,18 @@ const CtaButton = styled.div`
   flex-basis: 12%;
 `;
 
-const CtaButtonStyle = styled.div`
+const CtaButtonStyle = styled.button`
+  color: white;
+  background-color: black;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border: 1px solid black;
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 1rem;
   font-size: 1.5rem;
   font-weight: bold;
   padding: 0px 4rem;
+  margin-bottom: 4px;
 `;
 
 const Model = styled.div`
