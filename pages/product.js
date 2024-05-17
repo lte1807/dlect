@@ -7,7 +7,7 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Image from "next/image";
 import { Suspense, useState } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import layerIcon from '../public/icons/layer.png'
 
 
@@ -15,6 +15,12 @@ function Product() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [model, setModel] = useState("");
   const [layer, setLayer] = useState(false);
+
+  const [modelLoaded, setModelLoaded] = useState(false);
+
+  const handleModelLoaded = () => {
+    setModelLoaded(true);
+  };
 
   const ClickMenu = (index) => {
     setActiveIndex(index);
@@ -38,13 +44,20 @@ function Product() {
   return (
     <Container>
       <Section>
-        <Model>
+      <Model>
+      <Suspense fallback={(
+                <LoadingOverlay>
+                  <LoadingSpinner />
+                  <LoadingText>Loading...</LoadingText>
+                </LoadingOverlay>
+              )}>
           <Canvas camera={{ fov: 100 }} style={{ background: "#e6e6e5" }}>
             <OrbitControls target={[0, 0, 0]} />
             <group>
-              <Suspense fallback={null}>
+              
                 <mesh position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
-                  <Wear />
+                  {/* 모델이 로딩 완료되면 handleModelLoaded 호출 */}
+                  <Wear onLoad={handleModelLoaded} />
                 </mesh>
                 {model && (
                   <mesh position={[-0.1, -4, 1]} scale={[0.2, 0.2, 0.01]}>
@@ -52,17 +65,16 @@ function Product() {
                     <meshStandardMaterial attach="material" color={0xa3b18a} />
                   </mesh>
                 )}
-              </Suspense>
+              
             </group>
-            {/* {layer && <Environment files={['/public/hdr/whiteBackground.hdr']} background />} */}
             <Environment
               background={true}
-              files={[`/hdr/${layer? 'studio' : 'whiteBackground'}.hdr`]}
+              files={[`/hdr/${layer ? 'studio' : 'whiteBackground'}.hdr`]}
             />
-            
             <axesHelper args={[5]} />
           </Canvas>
           <LayerChangeBtn src={layerIcon} width={40} height={40} alt="레이어" onClick={layerClickEvent}/>
+        </Suspense>
         </Model>
       </Section>
       <Section>
@@ -87,6 +99,12 @@ function Product() {
 
 export default Product;
 
+
+
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`
 
 const Container = styled.div`
   width: 100%;
@@ -164,3 +182,32 @@ const LayerChangeBtn = styled(Image)`
   right: 20px;
   z-index: 1;
 `
+
+const LoadingOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LoadingSpinner = styled.div`
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+
+  
+`;
+
+const LoadingText = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+`;
