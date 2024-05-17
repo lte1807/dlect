@@ -6,7 +6,7 @@ import Show from "@/components/Show";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Image from "next/image";
-import { Suspense, useState } from "react";
+import { Suspense, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import layerIcon from '../public/icons/layer.png'
 
@@ -32,8 +32,19 @@ function Product() {
 
   const layerClickEvent = () => {
     setLayer(!layer);
-    console.log(layer);
   }
+
+  // OrbitControls에 접근할 ref 생성
+  const controlsRef = useRef();
+
+  // 카메라 위치를 초기화하는 함수
+  const resetCameraPosition = () => {
+    // 부드럽게 이동하기 위해 enableDamping 활성화
+    // reset 함수 호출
+    controlsRef.current.reset();
+  };
+
+
   
 
   const menuArr = [
@@ -52,7 +63,7 @@ function Product() {
                 </LoadingOverlay>
               )}>
           <Canvas camera={{ fov: 100 }} style={{ background: "#e6e6e5" }}>
-            <OrbitControls target={[0, 0, 0]} />
+          <OrbitControls ref={controlsRef} target={[0, 0, 0]} />
             <group>
               
                 <mesh position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
@@ -88,7 +99,7 @@ function Product() {
           </TabMenu>
           <SelectItems>{menuArr[activeIndex].component}</SelectItems>
           <CtaButton>
-            <CtaButtonStyle>Cart</CtaButtonStyle>
+            <CtaButtonStyle onClick={resetCameraPosition}>Reset Camera</CtaButtonStyle>
             <CtaButtonStyle>Buy</CtaButtonStyle>
           </CtaButton>
         </Menu>
