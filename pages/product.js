@@ -5,12 +5,16 @@ import Select from "@/components/Select";
 import Show from "@/components/Show";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import Image from "next/image";
 import { Suspense, useState } from "react";
 import styled, { css } from "styled-components";
+import layerIcon from '../public/icons/layer.png'
+
 
 function Product() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [model, setModel] = useState("");
+  const [layer, setLayer] = useState(false);
 
   const ClickMenu = (index) => {
     setActiveIndex(index);
@@ -19,6 +23,12 @@ function Product() {
   const onSetModel = (url) => {
     setModel(url);
   };
+
+  const layerClickEvent = () => {
+    setLayer(!layer);
+    console.log(layer);
+  }
+  
 
   const menuArr = [
     { name: "SELECT", component: <Select updateModel={onSetModel} /> },
@@ -44,9 +54,15 @@ function Product() {
                 )}
               </Suspense>
             </group>
-            <Environment preset="apartment" background />
+            {/* {layer && <Environment files={['/public/hdr/whiteBackground.hdr']} background />} */}
+            <Environment
+              background={true}
+              files={[`/hdr/${layer? 'studio' : 'whiteBackground'}.hdr`]}
+            />
+            
             <axesHelper args={[5]} />
           </Canvas>
+          <LayerChangeBtn src={layerIcon} width={40} height={40} alt="레이어" onClick={layerClickEvent}/>
         </Model>
       </Section>
       <Section>
@@ -80,7 +96,7 @@ const Container = styled.div`
 const Section = styled.div`
   width: 100%;
   height: 50%;
-  border: 1px solid black;
+  
 `;
 
 const Menu = styled.div`
@@ -137,6 +153,14 @@ const CtaButtonStyle = styled.button`
 `;
 
 const Model = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
 `;
+
+const LayerChangeBtn = styled(Image)`
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  z-index: 1;
+`
