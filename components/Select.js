@@ -18,7 +18,7 @@ function Select({ updateModel }) {
 
   const onClickShowItem = (index) => {
     setActiveIndex(index);
-    console.log(activeIndex);
+    
   };
 
   const onClickSelectItem = (index) => {
@@ -57,6 +57,21 @@ function Select({ updateModel }) {
 }
 
 export default Select;
+
+const boxShadowAnimation = keyframes`
+  from {
+    top:4px;
+    box-shadow: inset 0 0 0px 0px rgba(0, 0, 250, .6);
+    border: 0.5px solid #eeeeee;
+    margin-right:-2px;
+  }
+  to{
+    top:4px;
+    box-shadow: inset 0 0 10px 0px rgba(0, 0, 250, .6);
+    border: 0.5px solid #eeeeee;
+    margin-right:-2px;
+  }
+`
 
 const RibbonAnimation = keyframes`
   0% {
@@ -107,15 +122,19 @@ const Right = styled.div`
 `;
 
 const Accessory = styled.button`
-  color: white;
   width: 5rem;
   height: 5rem;
   display: flex;
-  border: 1px solid black;
   border-radius: 50%;
   justify-content: center;
   align-items: center;
-  background-color: ${props => (props.clicked ? 'black;' : "black;")}
+  background-color: ${props => (props.clicked ? 'white;' : "white;")};
+
+  &:focus{
+    animation: ${boxShadowAnimation} .9s alternate infinite;
+  }
+  
+  
 `;
 
 const Items = styled.div`

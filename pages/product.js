@@ -6,7 +6,7 @@ import Show from "@/components/Show";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 function Product() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -31,7 +31,6 @@ function Product() {
         <Model>
           <Canvas camera={{ fov: 100 }} style={{ background: "#e6e6e5" }}>
             <OrbitControls target={[0, 0, 0]} />
-
             <group>
               <Suspense fallback={null}>
                 <mesh position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
@@ -94,19 +93,24 @@ const Menu = styled.div`
 const TabMenu = styled.div`
   display: flex;
   flex-basis: 8%;
-  justify-content: center;
+  justify-content: space-around;
   gap: 2rem;
+  margin-top: 10px;
 `;
 
 const MenuStyle = styled.button`
-  color: white;
   font-size: 1rem;
   font-weight: bold;
-  border: 1px solid black;
-  border-top: 0;
   border-radius: 1rem;
   padding: 0.5rem 2rem;
-  background-color: ${props => props.clicked ? "black;" : "black;"}
+  background-color: white;
+  ${props => props.clicked && css`
+      top:5px;
+      box-shadow: 0 4px 3px 1px #FCFCFC inset;
+      border: 0.5px solid #eeeeee;
+      margin-right:-2px;
+  `
+  }
   
 `;
 
@@ -121,17 +125,15 @@ const CtaButton = styled.div`
 `;
 
 const CtaButtonStyle = styled.button`
-  color: white;
-  background-color: black;
   display: flex;
+  background-color: white;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid black;
   border-radius: 1rem;
   font-size: 1.5rem;
   font-weight: bold;
   padding: 0px 4rem;
-  margin-bottom: 4px;
+  margin-bottom: 15px;
 `;
 
 const Model = styled.div`

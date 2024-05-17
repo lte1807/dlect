@@ -41,16 +41,17 @@ const GlobalStyle = createGlobalStyle`
   button {
     position: relative;
     cursor: pointer;
-    box-shadow: 0 0 0 0.3px #ffffff  inset,
-        0 0 0 0.1px rgba(255,255,255,0.15) inset,
-        0 8px 0 0 rgba(0, 0, 0, .9),
-        0 8px 0 1px rgba(0,0,0,.4),
-        0 8px 8px 1px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 3px 1px #FCFCFC,
+            0 6px 5px #D6D7D9,
+            0 -3.5px 2px #CECFD1,
+            inset 0 0 1.5px 0 #CECFD1;
+    
+
     &:active {
-      top: 7px;
-      box-shadow: 0 0 0 1px #6191C2 inset,
-        0 0 0 2px rgba(255,255,255,0.15) inset,
-        0 0 0 1px rgba(0,0,0,0.4);
+      top:5px;
+      box-shadow: 0 4px 3px 1px #FCFCFC inset;
+      border: 0.5px solid #eeeeee;
+      margin-right:-2px;
     }
   }
 
