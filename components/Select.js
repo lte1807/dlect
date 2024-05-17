@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 const selectArr = [
   { name: "zipper", items: ["A", "B", "C"] },
@@ -60,16 +60,14 @@ export default Select;
 
 const boxShadowAnimation = keyframes`
   from {
-    top:4px;
+    
     box-shadow: inset 0 0 0px 0px rgba(0, 0, 250, .6);
-    border: 0.5px solid #eeeeee;
-    margin-right:-2px;
+    
   }
   to{
-    top:4px;
+    
     box-shadow: inset 0 0 10px 0px rgba(0, 0, 250, .6);
-    border: 0.5px solid #eeeeee;
-    margin-right:-2px;
+    
   }
 `
 
@@ -130,8 +128,13 @@ const Accessory = styled.button`
   align-items: center;
   background-color: ${props => (props.clicked ? 'white;' : "white;")};
 
-  &:focus{
+
+  ${props => props.clicked && css`
+    top:4px;
+    border: 0.5px solid #eeeeee;
+    margin-right:-2px;
     animation: ${boxShadowAnimation} .9s alternate infinite;
+  `
   }
   
   
