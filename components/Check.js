@@ -18,7 +18,7 @@ function Check() {
           review
         </ReivewButton>
         <Modal isOpen={isOpen} onClose={closeModal}>
-          <button onClick={closeModal}>Close</button>
+          <div onClick={closeModal}>Close</div>
           <h2>This is a Modal</h2>
           <p>You can put any content you like in here.</p> 
         </Modal>
@@ -47,19 +47,19 @@ const Wrapper = styled.div`
   
 `
 const CheckItemStyle = styled.button`
-  color: white;
-  background-color: black;
+  background-color: white;
   width: 40%;
   height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
-  border-radius: 2rem;    
+  border-radius: 2rem;
 `
 
 const ProductionInfo = styled(CheckItemStyle)`
-
+  &:active{
+    margin-right:1px;
+  }
 `
 const ReivewButton = styled(CheckItemStyle)`
   
