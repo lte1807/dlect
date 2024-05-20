@@ -126,7 +126,7 @@ const Accessory = styled.button`
   border-radius: 50%;
   justify-content: center;
   align-items: center;
-  background-color: ${props => (props.clicked ? 'white;' : "white;")};
+  background-color: white;
 
 
   ${props => props.clicked && css`

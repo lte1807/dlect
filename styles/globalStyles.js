@@ -39,6 +39,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button {
+    color: black;
+    -webkit-text-fill-color: #000000;
     position: relative;
     cursor: pointer;
     box-shadow: 0 4px 3px 1px #FCFCFC,

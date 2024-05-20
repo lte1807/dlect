@@ -29,6 +29,19 @@ function Check() {
 
 export default Check;
 
+const boxShadowAnimation = keyframes`
+  from {
+    
+    box-shadow: inset 0 0 0px 0px rgba(0, 0, 250, .6);
+    
+  }
+  to{
+    
+    box-shadow: inset 0 0 10px 0px rgba(0, 0, 250, .6);
+    
+  }
+`
+
 
 const Container = styled.div`
   width: 100%;
@@ -54,12 +67,18 @@ const CheckItemStyle = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 2rem;
+  
+  &:hover{
+    margin-right:1px;
+    top:4px;
+    border: 0.5px solid #eeeeee;
+    margin-right:-2px;
+    animation: ${boxShadowAnimation} .9s alternate infinite;
+  }
 `
 
 const ProductionInfo = styled(CheckItemStyle)`
-  &:active{
-    margin-right:1px;
-  }
+  
 `
 const ReivewButton = styled(CheckItemStyle)`
   
