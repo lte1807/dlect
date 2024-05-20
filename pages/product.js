@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Suspense, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import layerIcon from '../public/icons/layer.png'
+import { useSpring, animated } from "@react-spring/three";
 
 
 function Product() {
@@ -18,6 +19,11 @@ function Product() {
 
   const [modelLoaded, setModelLoaded] = useState(false);
 
+  const controlsRef = useRef();
+
+  const [{ position, scale }, set] = useSpring(() => ({ position: [0, 0, 0], scale: [1, 1, 1]}));
+  
+
   const handleModelLoaded = () => {
     setModelLoaded(true);
   };
@@ -26,23 +32,27 @@ function Product() {
     setActiveIndex(index);
   };
 
+  const zoomToPosition = (newPosition , newScale) => {
+    set({ position: newPosition, scale: newScale, config: { duration: 500 } });
+  };
+
   const onSetModel = (url) => {
     setModel(url);
+    zoomToPosition([0, -2, 0], [1.5, 1.5, 1.5]);
   };
 
   const layerClickEvent = () => {
     setLayer(!layer);
   }
 
-  // OrbitControls에 접근할 ref 생성
-  const controlsRef = useRef();
-
-  // 카메라 위치를 초기화하는 함수
+    // 카메라 위치를 초기화하는 함수
   const resetCameraPosition = () => {
     // 부드럽게 이동하기 위해 enableDamping 활성화
     // reset 함수 호출
-    controlsRef.current.reset();
+    set({position: [0,0,0], scale: [1, 1, 1], config: {duration: 500}});
   };
+
+  
 
 
   
@@ -63,24 +73,34 @@ function Product() {
                 </LoadingOverlay>
               )}>
           <Canvas camera={{ fov: 100 }} style={{ background: "#e6e6e5" }}>
-          <OrbitControls ref={controlsRef} target={[0, 0, 0]} />
-            <group>
-              
-                <mesh position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
-                  {/* 모델이 로딩 완료되면 handleModelLoaded 호출 */}
-                  <Wear onLoad={handleModelLoaded} />
-                </mesh>
-                {model && (
-                  <mesh position={[-0.1, -4, 1]} scale={[0.2, 0.2, 0.01]}>
-                    <Zipper model={model} />
-                    <meshStandardMaterial attach="material" color={0xa3b18a} />
+            <OrbitControls 
+              ref={controlsRef} 
+              target={[0, 0, 0]} 
+              enablePan={false} 
+              maxPolarAngle={Math.PI / 2} 
+              minPolarAngle={Math.PI / 2}
+              maxDistance={10}
+              minDistance={4}
+            />
+            
+                {/*  */}
+                <animated.group position={position} scale={scale}>
+                  <mesh position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
+                    <Wear onLoad={handleModelLoaded} />
                   </mesh>
-                )}
+
+                  {model && (
+                    <mesh position={[-0.1, -4, 1]} scale={[0.2, 0.2, 0.01]}>
+                      <Zipper model={model} />
+                      <meshStandardMaterial attach="material" color={0xa3b18a} />
+                    </mesh>
+                  )}
+                </animated.group>
               
-            </group>
+            
             <Environment
               background={true}
-              files={[`/hdr/${layer ? 'studio' : 'whiteBackground'}.hdr`]}
+              files={[`/hdr/${layer ? 'whiteBackground' : 'studio' }.hdr`]}
             />
             <axesHelper args={[5]} />
           </Canvas>
