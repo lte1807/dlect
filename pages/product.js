@@ -1,29 +1,25 @@
 import Check from "@/components/Check";
-import Wear from "@/components/models/Wear";
-import Zipper from "@/components/models/Zipper";
 import Select from "@/components/Select";
 import Show from "@/components/Show";
-import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Image from "next/image";
 import { Suspense, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import layerIcon from '../public/icons/layer.png'
-import { useSpring, animated } from "@react-spring/three";
+import { useSpring} from "@react-spring/three";
+import Scene from "@/components/models/Scene";
+import resetIcon from "../public/icons/resetButton.png"
+import { Center } from "@react-three/drei";
 
 
 function Product() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [model, setModel] = useState("");
   const [layer, setLayer] = useState(false);
-
   const [modelLoaded, setModelLoaded] = useState(false);
-
-  const controlsRef = useRef();
-
-  const [{ position, scale }, set] = useSpring(() => ({ position: [0, 0, 0], scale: [1, 1, 1]}));
+  const [{ position, scale, rotation }, set] = useSpring(() => ({ position: [0, 0, 0], scale: [1, 1, 1], rotation: [0,0,0]}));
+  const childRef = useRef();
   
-
   const handleModelLoaded = () => {
     setModelLoaded(true);
   };
@@ -47,15 +43,10 @@ function Product() {
 
     // 카메라 위치를 초기화하는 함수
   const resetCameraPosition = () => {
-    // 부드럽게 이동하기 위해 enableDamping 활성화
     // reset 함수 호출
-    set({position: [0,0,0], scale: [1, 1, 1], config: {duration: 500}});
+    set({position: [0,0,0], scale: [1, 1, 1], rotation: [0,0,0], config: {duration: 500}});
+    childRef.current.resetClick();
   };
-
-  
-
-
-  
 
   const menuArr = [
     { name: "SELECT", component: <Select updateModel={onSetModel} /> },
@@ -73,38 +64,22 @@ function Product() {
                 </LoadingOverlay>
               )}>
           <Canvas camera={{ fov: 100 }} style={{ background: "#e6e6e5" }}>
-            <OrbitControls 
-              ref={controlsRef} 
-              target={[0, 0, 0]} 
-              enablePan={false} 
-              maxPolarAngle={Math.PI / 2} 
-              minPolarAngle={Math.PI / 2}
-              maxDistance={10}
-              minDistance={4}
-            />
-            
-                {/*  */}
-                <animated.group position={position} scale={scale}>
-                  <mesh position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
-                    <Wear onLoad={handleModelLoaded} />
-                  </mesh>
-
-                  {model && (
-                    <mesh position={[-0.1, -4, 1]} scale={[0.2, 0.2, 0.01]}>
-                      <Zipper model={model} />
-                      <meshStandardMaterial attach="material" color={0xa3b18a} />
-                    </mesh>
-                  )}
-                </animated.group>
-              
-            
-            <Environment
-              background={true}
-              files={[`/hdr/${layer ? 'whiteBackground' : 'studio' }.hdr`]}
-            />
-            <axesHelper args={[5]} />
-          </Canvas>
-          <LayerChangeBtn src={layerIcon} width={40} height={40} alt="레이어" onClick={layerClickEvent}/>
+              <Scene
+                ref={childRef}
+                position={position}
+                scale={scale}
+                rotation={rotation}
+                model={model}
+                resetCameraPosition = {resetCameraPosition}
+                handleModelLoaded={handleModelLoaded}
+                layer={layer}
+              />
+            </Canvas>
+            <RotateResetBtn src={resetIcon} width={40} height={40} alt="리셋" onClick={resetCameraPosition} />
+            {/* <LayerChangeBtn src={layerIcon} width={40} height={40} alt="레이어" onClick={layerClickEvent} /> */}
+            <ToggleSwitch onClick={layerClickEvent} SwitchOnOff={layer}>
+              <SwithchBall SwitchOnOff={layer}/>
+            </ToggleSwitch>
         </Suspense>
         </Model>
       </Section>
@@ -119,7 +94,7 @@ function Product() {
           </TabMenu>
           <SelectItems>{menuArr[activeIndex].component}</SelectItems>
           <CtaButton>
-            <CtaButtonStyle onClick={resetCameraPosition}>Reset Camera</CtaButtonStyle>
+            <CtaButtonStyle>Cart</CtaButtonStyle>
             <CtaButtonStyle>Buy</CtaButtonStyle>
           </CtaButton>
         </Menu>
@@ -132,9 +107,52 @@ export default Product;
 
 
 
-const spin = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+const toggleOnAnimation = keyframes`
+  from {
+    background: white;
+    
+  }
+
+  to {
+    background: #0080FF;
+    
+  }
+`
+
+const toggleOffAnimation = keyframes`
+  from {
+    background: #0080FF;
+  }
+
+  to {
+    background: white;
+  }
+`
+
+const switchOnAnimation = keyframes`
+  from {
+    background: #0080FF;
+    transform: translateX(0px);
+  }
+
+  to {
+    background: white;
+    transform: translateX(30px);
+  }
+`
+
+
+const switchOffAnimation = keyframes`
+  from {
+    background: white;
+    transform: translateX(30px);
+  }
+
+  to {    
+    background: #0080FF;
+    
+    transform: translateX(0px);
+  }
 `
 
 const Container = styled.div`
@@ -213,6 +231,12 @@ const LayerChangeBtn = styled(Image)`
   right: 20px;
   z-index: 1;
 `
+const RotateResetBtn = styled(Image)`
+  position: absolute;
+  bottom: 60px;
+  right: 25px;
+  z-index: 1;
+`
 
 const LoadingOverlay = styled.div`
   position: absolute;
@@ -242,3 +266,27 @@ const LoadingText = styled.div`
   font-weight: bold;
   color: #333;
 `;
+
+const ToggleSwitch = styled.div`
+  position: absolute;
+  display: flex;
+  padding: 1px;
+  align-items: center;
+  bottom: 10px;
+  right: 15px;
+  z-index: 1;
+  width: 60px;
+  height: 30px;
+  background: white;
+  border-radius: 2rem;
+  animation: ${(props) =>
+    props.SwitchOnOff ? css`${toggleOnAnimation} 1s forwards` : css`${toggleOffAnimation} 1s forwards`};
+`
+
+const SwithchBall = styled.div`
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  animation: ${(props) =>
+    props.SwitchOnOff ? css`${switchOnAnimation} 1s forwards` : css`${switchOffAnimation} 1s forwards`};
+`
