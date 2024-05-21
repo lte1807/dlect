@@ -1,5 +1,4 @@
 import { Environment, OrbitControls } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { animated } from "@react-spring/three";
 import Wear from "./Wear";
@@ -52,4 +51,5 @@ const Scene = forwardRef(( {position, scale, rotation, model, handleModelLoaded,
       );
     }
   )
+  Scene.displayName = "Scene";
   export default Scene;
