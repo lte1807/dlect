@@ -1,8 +1,16 @@
 import styled from "styled-components";
 import MenuIcon from "@/public/icons/HeaderMenu.js";
 import Link from "next/link";
+import { useState } from "react";
+import SideMenu from "@/components/SideMenu"
 
 function Header() {
+  const [active, setActive] = useState(false);
+
+  const ClickSideMunu = () => {
+    setActive(!active);
+  }
+
   return (
     <Container>
       <Wrap>
@@ -11,10 +19,15 @@ function Header() {
         </Link>
         <HeaderNav>
           <Language>언어</Language>
-          <MenuIcon width={30} height={30} />
+          <div onClick={ClickSideMunu}>
+            <MenuIcon width={30} height={30} />
+          </div>
         </HeaderNav>
+        
       </Wrap>
+      {active? <SideMenu /> : ""}
     </Container>
+    
   );
 }
 
