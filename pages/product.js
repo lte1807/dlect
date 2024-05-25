@@ -5,11 +5,9 @@ import { Canvas } from "@react-three/fiber";
 import Image from "next/image";
 import { Suspense, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
-import layerIcon from '../public/icons/layer.png'
 import { useSpring} from "@react-spring/three";
 import Scene from "@/components/models/Scene";
 import resetIcon from "../public/icons/resetButton.png"
-import { Center } from "@react-three/drei";
 
 
 function Product() {
@@ -76,7 +74,6 @@ function Product() {
               />
             </Canvas>
             <RotateResetBtn src={resetIcon} width={40} height={40} alt="리셋" onClick={resetCameraPosition} />
-            {/* <LayerChangeBtn src={layerIcon} width={40} height={40} alt="레이어" onClick={layerClickEvent} /> */}
             <ToggleSwitch onClick={layerClickEvent} SwitchOnOff={layer}>
               <SwithchBall SwitchOnOff={layer}/>
             </ToggleSwitch>
@@ -114,14 +111,14 @@ const toggleOnAnimation = keyframes`
   }
 
   to {
-    background: #0080FF;
+    background: #000000;
     
   }
 `
 
 const toggleOffAnimation = keyframes`
   from {
-    background: #0080FF;
+    background: #000000;
   }
 
   to {
@@ -131,13 +128,13 @@ const toggleOffAnimation = keyframes`
 
 const switchOnAnimation = keyframes`
   from {
-    background: #0080FF;
+    background: #000000;
     transform: translateX(0px);
   }
 
   to {
     background: white;
-    transform: translateX(30px);
+    transform: translateX(20px);
   }
 `
 
@@ -145,11 +142,11 @@ const switchOnAnimation = keyframes`
 const switchOffAnimation = keyframes`
   from {
     background: white;
-    transform: translateX(30px);
+    transform: translateX(20px);
   }
 
   to {    
-    background: #0080FF;
+    background: #000000;
     
     transform: translateX(0px);
   }
@@ -225,15 +222,10 @@ const Model = styled.div`
   height: 100%;
 `;
 
-const LayerChangeBtn = styled(Image)`
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-  z-index: 1;
-`
+
 const RotateResetBtn = styled(Image)`
   position: absolute;
-  bottom: 60px;
+  bottom: 50px;
   right: 25px;
   z-index: 1;
 `
@@ -257,8 +249,6 @@ const LoadingSpinner = styled.div`
   width: 50px;
   height: 50px;
   animation: spin 1s linear infinite;
-
-  
 `;
 
 const LoadingText = styled.div`
@@ -273,10 +263,10 @@ const ToggleSwitch = styled.div`
   padding: 1px;
   align-items: center;
   bottom: 10px;
-  right: 15px;
+  right: 25px;
   z-index: 1;
-  width: 60px;
-  height: 30px;
+  width: 40px;
+  height: 20px;
   background: white;
   border-radius: 2rem;
   animation: ${(props) =>
@@ -284,8 +274,8 @@ const ToggleSwitch = styled.div`
 `
 
 const SwithchBall = styled.div`
-  width: 28px;
-  height: 28px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   animation: ${(props) =>
     props.SwitchOnOff ? css`${switchOnAnimation} 1s forwards` : css`${switchOffAnimation} 1s forwards`};

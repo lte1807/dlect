@@ -144,7 +144,7 @@ const Items = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-
+  
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
@@ -152,15 +152,17 @@ const Items = styled.div`
   visibility: hidden;
 `;
 
-const AccessoryItem = styled.div`
+const AccessoryItem = styled.button`
+  background: white;
   width: 5rem;
   height: 5rem;
-  border: 1px solid black;
   border-radius: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  &:nth-child(1) {
+  
+  &:active {
+    margin-right: 0px;
   }
 `;
 

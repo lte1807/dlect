@@ -1,32 +1,58 @@
-import React, { useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import { styled } from "styled-components";
+import kakaoImg from "@/public/img/kakaotalk.png";
+import naverImg from "@/public/img/naver.png";
+import instagramImg from "@/public/img/instagram.png";
 
 function Show() {
-  const [isChange, setIsChange] = useState(false);
+  
+  const [isClick, setIsClick] = useState(false);
 
   const clickEvent = () => {
-    setIsChange(!isChange);
-  };
+    setIsClick(!isClick);
+  }
 
-  const clickAlert = () => {
-    alert("주소가 복사되었습니다.");
+  const handleCopyClipBoard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("클립보드에 링크가 복사되었어요.");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <Container>
-      {isChange ? (
-        <div>
-          <ButtonComponent>
-            <URL>주소</URL>
-            <ButtonCopy onClick={clickAlert}>copy</ButtonCopy>
-          </ButtonComponent>
-        </div>
-      ) : (
-        <>
-          <ButtonComponent>디자인 전후 비교</ButtonComponent>
-          <ButtonLink onClick={clickEvent}>디자인 자랑하기</ButtonLink>
-        </>
-      )}
+      <Wrapper>
+        
+        {isClick ? (
+          <>
+            <CopyButton>
+              <Adress>https://m.dlect.co.kr</Adress>
+              <Copy onClick={() => handleCopyClipBoard('https://delightful-torrone-946274.netlify.app')}>copy</Copy>
+              <SocialBtnGroup>
+                <SnsButton>
+                  <Image width={35} height={35} alt="카카오" src={kakaoImg}/>
+                </SnsButton>
+                <SnsButton>
+                  <Image width={35} height={35} alt="네이버" src={naverImg}/>
+                </SnsButton>
+                <SnsButton>
+                  <Image width={35} height={35} alt="인스타그램" src={instagramImg}/>
+                </SnsButton>                
+              </SocialBtnGroup>
+            </CopyButton>
+          </>
+        ) : (
+          <>
+            <CompareButton>
+              디자인 전 후 비교
+            </CompareButton>
+            <Boast onClick={clickEvent}>디자인 자랑하기</Boast>
+          </>          
+        )}
+      </Wrapper>      
     </Container>
   );
 }
@@ -38,39 +64,113 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
   width: 100%;
   height: 100%;
-  padding: 0 20px;
+  padding: 0 30px;
 `;
 
-const ButtonComponent = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Wrapper = styled.div`
   width: 100%;
-  height: 70px;
-  border: 2px solid black;
-  border-radius: 20px;
-  gap: 20px;
-`;
-
-const ButtonLink = styled.div`
-  text-align: center;
-  margin-top: 20px;
-`;
-
-const URL = styled.div`
-  width: 300px;
-  height: 30px;
-  border: 1px solid black;
-`;
-
-const ButtonCopy = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:4rem;
+`
+const CompareButton = styled.button`
+  width: 100%;
+  height: 8rem;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80px;
-  height: 30px;
-  border: 1px solid black;
-`;
+  border-radius: 2rem;
+`
+const Boast = styled.div`
+  font-size: 1.3rem;
+  text-decoration: underline;
+`
+
+const CopyButton = styled.div`
+  background-color: white;
+  width: 100%;
+  border-radius: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+  color: black;
+    -webkit-text-fill-color: #000000;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 4px 3px 1px #FCFCFC,
+            0 6px 5px #D6D7D9,
+            0 -3.5px 2px #CECFD1,
+            inset 0 0 1.5px 0 #CECFD1;
+`
+
+const Adress = styled.div`
+  width: 70%;
+  height: 3rem;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 1rem;
+`
+
+const Copy = styled.div`
+  width: 6rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+    -webkit-text-fill-color: #000000;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 4px 3px 1px #FCFCFC,
+            0 6px 5px #D6D7D9,
+            0 -3.5px 2px #CECFD1,
+            inset 0 0 1.5px 0 #CECFD1;
+    
+
+    &:active {
+      top:5px;
+      box-shadow: 0 4px 3px 1px #FCFCFC inset;
+      border: 0.5px solid #eeeeee;
+      margin-right:-2px;
+      margin-left: 2px;
+    }
+`
+
+const SocialBtnGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+`
+
+const SnsButton = styled.div`
+border-radius: 3rem;
+color: black;
+    -webkit-text-fill-color: #000000;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 4px 3px 1px #FCFCFC,
+            0 6px 5px #D6D7D9,
+            0 -3.5px 2px #CECFD1,
+            inset 0 0 1.5px 0 #CECFD1;
+    
+
+    &:active {
+      top:5px;
+      box-shadow: 0 4px 3px 1px #FCFCFC inset;
+      border: 0.5px solid #eeeeee;
+      margin-right:-2px;
+      margin-top: -2px;
+    }
+  
+`

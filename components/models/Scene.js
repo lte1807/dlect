@@ -25,11 +25,7 @@ const Scene = forwardRef(( {position, scale, rotation, model, handleModelLoaded,
         ref={controlsRef}
         target={[0, 0, 0]}        
         enablePan={false} 
-        dampingFactor={0.2}
-        maxPolarAngle={Math.PI / 2} 
-        minPolarAngle={Math.PI / 2}
-        maxDistance={7}
-        minDistance={4}        
+        dampingFactor={0.2}        
         />
         <animated.group position={position} scale={scale} rotation={rotation}>
         <mesh position={[0, -14, 0]} scale={[10.5, 10.5, 10.5]}>
