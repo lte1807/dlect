@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 function Home() {
   return (
     <Container>
-      <Link href="/product">
+      <Link href="/list">
         <LinkButton>
           <TextStyle>D.LECT</TextStyle>
           Design Select
