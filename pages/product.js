@@ -7,7 +7,7 @@ import { Suspense, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useSpring} from "@react-spring/three";
 import Scene from "@/components/models/Scene";
-import resetIcon from "../public/icons/resetButton.png"
+import resetIcon from "../public/img/return.png";
 
 
 function Product() {
@@ -73,7 +73,9 @@ function Product() {
                 layer={layer}
               />
             </Canvas>
-            <RotateResetBtn src={resetIcon} width={40} height={40} alt="리셋" onClick={resetCameraPosition} />
+            <RotateResetBtn onClick={resetCameraPosition}>
+              <Image width={25} height={25} alt="reset" src={resetIcon}/>
+            </RotateResetBtn>
             <ToggleSwitch onClick={layerClickEvent} SwitchOnOff={layer}>
               <SwithchBall SwitchOnOff={layer}/>
             </ToggleSwitch>
@@ -223,10 +225,17 @@ const Model = styled.div`
 `;
 
 
-const RotateResetBtn = styled(Image)`
+const RotateResetBtn = styled.div`
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4rem;
+  background-color: black;
   position: absolute;
   bottom: 50px;
-  right: 25px;
+  right: 27px;
   z-index: 1;
 `
 

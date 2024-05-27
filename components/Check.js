@@ -3,23 +3,28 @@ import { keyframes, styled } from "styled-components";
 import Modal from "./modal/Modal";
 
 function Check() {
-  const [isOpen, setIsOpen] = useState(false);
-  
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [isInfomation, setIsInfomation] = useState(false);
+  const openReivewModal = () => setIsReviewOpen(!isReviewOpen);
+  const openInfomationModal = () => setIsInfomation(!isInfomation);
 
   return (
     <Container>
       <Wrapper>
-        <ProductionInfo>
+        <ProductionInfo onClick={openInfomationModal}>
           product infomation
         </ProductionInfo>
-        <ReivewButton onClick={openModal}>
+        <ReivewButton onClick={openReivewModal}>
           review
         </ReivewButton>
-        <Modal isOpen={isOpen} onClose={closeModal}>
-          <div onClick={closeModal}>Close</div>
+        <Modal isOpen={isReviewOpen}>
+          <div onClick={openReivewModal}>Close</div>
           <h2>This is a Modal</h2>
+          <p>You can put any content you like in here.</p> 
+        </Modal>
+        <Modal isOpen={isInfomation}>
+          <div onClick={openInfomationModal}>Close</div>
+          <h2>This is a Product Infomation</h2>
           <p>You can put any content you like in here.</p> 
         </Modal>
       </Wrapper>

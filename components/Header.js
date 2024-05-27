@@ -3,6 +3,8 @@ import MenuIcon from "@/public/icons/HeaderMenu.js";
 import Link from "next/link";
 import { useState } from "react";
 import SideMenu from "@/components/SideMenu"
+import LogoImg from "@/public/img/logo.png"
+import Image from "next/image";
 
 function Header() {
   const [active, setActive] = useState(false);
@@ -15,7 +17,7 @@ function Header() {
     <Container>
       <Wrap>
         <Link href="/">
-          <Logo>D.LECT</Logo>
+          <Logo><Image width={120} height={30} src={LogoImg}/></Logo>
         </Link>
         <HeaderNav>
           <Language>언어</Language>
