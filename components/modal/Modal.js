@@ -1,11 +1,11 @@
 import { Children } from "react";
 import styled, { keyframes } from "styled-components";
 
-function Modal({ isOpen, onClose, children}) {
+function Modal({ isOpen, children}) {
     if(!isOpen) return null;
     
     return (
-        <ModalWrapper onClick={onclose}>
+        <ModalWrapper >
             <ModalContent>
                 {children}
             </ModalContent>

@@ -34,6 +34,11 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("/img/intro.gif");
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  background-attachment: fixed;
 `;
 
 const LinkButton = styled.div`

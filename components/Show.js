@@ -4,13 +4,19 @@ import { styled } from "styled-components";
 import kakaoImg from "@/public/img/kakaotalk.png";
 import naverImg from "@/public/img/naver.png";
 import instagramImg from "@/public/img/instagram.png";
+import Modal from "./modal/Modal";
 
 function Show() {
   
   const [isClick, setIsClick] = useState(false);
+  const [isCompareModal, setIsCompareModal] = useState(false);
 
   const clickEvent = () => {
     setIsClick(!isClick);
+  }
+
+  const openCompareModal = () => {
+    setIsCompareModal(!isCompareModal);
   }
 
   const handleCopyClipBoard = async (text) => {
@@ -46,11 +52,17 @@ function Show() {
           </>
         ) : (
           <>
-            <CompareButton>
+            <CompareButton onClick={setIsCompareModal}>
               디자인 전 후 비교
             </CompareButton>
             <Boast onClick={clickEvent}>디자인 자랑하기</Boast>
-          </>          
+            <Modal isOpen={isCompareModal}>
+              <div onClick={openCompareModal}>Close</div>
+              <h2>This is a CompareModal</h2>
+              <p>You can put any content you like in here.</p> 
+          </Modal>          
+          </>
+          
         )}
       </Wrapper>      
     </Container>
