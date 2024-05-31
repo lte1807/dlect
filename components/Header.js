@@ -2,8 +2,8 @@ import styled from "styled-components";
 import MenuIcon from "@/public/icons/HeaderMenu.js";
 import Link from "next/link";
 import { useState } from "react";
-import SideMenu from "@/components/SideMenu"
-import LogoImg from "@/public/img/logo.png"
+import SideMenu from "@/components/SideMenu";
+import LogoImg from "@/public/img/logo.png";
 import Image from "next/image";
 
 function Header() {
@@ -11,13 +11,15 @@ function Header() {
 
   const ClickSideMunu = () => {
     setActive(!active);
-  }
+  };
 
   return (
     <Container>
       <Wrap>
         <Link href="/">
-          <Logo><Image width={120} height={30} src={LogoImg}/></Logo>
+          <Logo>
+            <Image width={80} height={20} src={LogoImg} />
+          </Logo>
         </Link>
         <HeaderNav>
           <Language>언어</Language>
@@ -25,11 +27,9 @@ function Header() {
             <MenuIcon width={30} height={30} />
           </div>
         </HeaderNav>
-        
       </Wrap>
-      {active? <SideMenu /> : ""}
+      {active && <SideMenu />}
     </Container>
-    
   );
 }
 
@@ -48,8 +48,7 @@ const Wrap = styled.div`
 `;
 
 const Logo = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
+  background-color: red;
 `;
 const HeaderNav = styled.div`
   display: flex;
