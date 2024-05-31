@@ -34,7 +34,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("/img/intro.gif");
+  background-image: url("/img/intro2.gif");
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
