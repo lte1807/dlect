@@ -18,7 +18,7 @@ function Header() {
       <Wrap>
         <Link href="/">
           <Logo>
-            <Image width={80} height={20} src={LogoImg} />
+            <Image width={80} height={20} src={LogoImg} alt="로고" />
           </Logo>
         </Link>
         <HeaderNav>
