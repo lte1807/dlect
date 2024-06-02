@@ -1,54 +1,56 @@
+import { DEVICE_SIZE } from "@/styles/DeviceSize";
+import Image from "next/image";
 import Link from "next/link";
 import styled, { keyframes } from "styled-components";
 
 function Home() {
   return (
     <Container>
-      <Link href="/list">
-        <LinkButton>
-          <TextStyle>D.LECT</TextStyle>
-          Design Select
-        </LinkButton>
-      </Link>
+      <Wrapper>
+        <Link href="/list">
+          <ImageContainer></ImageContainer>
+        </Link>
+      </Wrapper>
     </Container>
   );
 }
 
 export default Home;
 
-const rotateAnimation = keyframes`
-  0% {
-    transform: scale(1.2);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.2);
-  }
-`;
-
 const Container = styled.div`
+  position: fixed;
   width: 100%;
-  height: 90%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  gap: 3rem;
+  position: relative;
+  @media (max-width: ${DEVICE_SIZE.mobile}) {
+    padding: 0;
+  }
+`;
+
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
   background-image: url("/img/intro2.gif");
-  background-repeat: no-repeat;
-  background-position: top center;
+  background-color: red;
   background-size: cover;
-  background-attachment: fixed;
-`;
+  background-position: center;
+  background-repeat: no-repeat;
 
-const LinkButton = styled.div`
-  font-size: 3rem;
-  font-weight: 600;
-  text-align: center;
-  animation: ${rotateAnimation} 1.4s linear infinite;
-`;
-
-const TextStyle = styled.div`
-  font-size: 2.2rem;
-  font-weight: bold;
+  @media (max-width: ${DEVICE_SIZE.mobile}) {
+    width: 100%;
+    height: 55rem;
+    position: absolute;
+    top: 17%;
+    left: 1rem;
+  }
 `;

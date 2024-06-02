@@ -1,15 +1,22 @@
 import Header from "@/components/Header";
 import GlobalStyle from "@/styles/globalStyles";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+  const noHeaderPages = ["/"];
+
   return (
     <>
       <GlobalStyle />
       <Container>
-        <HeaderStyle>
-          <Header />
-        </HeaderStyle>
+        {!noHeaderPages.includes(router.pathname) && (
+          <HeaderStyle>
+            <Header />
+          </HeaderStyle>
+        )}
+
         <Component {...pageProps} />
       </Container>
     </>
