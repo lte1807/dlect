@@ -5,6 +5,7 @@ import { useState } from "react";
 import SideMenu from "@/components/SideMenu";
 import LogoImg from "@/public/img/logo.png";
 import Image from "next/image";
+import { DEVICE_SIZE } from "@/styles/DeviceSize";
 
 function Header() {
   const [active, setActive] = useState(false);
@@ -48,7 +49,7 @@ const Wrap = styled.div`
 `;
 
 const Logo = styled.div`
-  background-color: red;
+  margin-top: 0.4rem;
 `;
 const HeaderNav = styled.div`
   display: flex;

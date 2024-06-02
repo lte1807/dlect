@@ -1,5 +1,5 @@
 export const DEVICE_SIZE = {
-  mobile: "600px",
+  mobile: "500px",
   tablet: "1200px",
   pc: "",
 };
