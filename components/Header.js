@@ -10,7 +10,7 @@ import { DEVICE_SIZE } from "@/styles/DeviceSize";
 function Header() {
   const [active, setActive] = useState(false);
 
-  const ClickSideMunu = () => {
+  const ClickSideMenu = () => {
     setActive(!active);
   };
 
@@ -24,12 +24,12 @@ function Header() {
         </Link>
         <HeaderNav>
           <Language>언어</Language>
-          <div onClick={ClickSideMunu}>
+          <div onClick={ClickSideMenu}>
             <MenuIcon width={30} height={30} />
           </div>
         </HeaderNav>
       </Wrap>
-      {active && <SideMenu />}
+      {active && <SideMenu ActiveState={ClickSideMenu} />}
     </Container>
   );
 }

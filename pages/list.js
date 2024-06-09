@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import { styled } from "styled-components";
 
@@ -6,76 +5,8 @@ function list() {
   return (
     <Container>
       <Wrapper>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
-        <ProductStyle>
-          <Link href="/product">
-            <ProductList></ProductList>
-          </Link>
-        </ProductStyle>
+        <Section></Section>
+        <Section></Section>
       </Wrapper>
     </Container>
   );
@@ -85,23 +16,18 @@ export default list;
 
 const Container = styled.div`
   width: 100%;
+  height: 93%;
+  border: 1px solid black;
   padding: 2rem;
 `;
 
 const Wrapper = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  height: 100%;
+  border: 1px solid black;
 `;
 
-const ProductStyle = styled.div``;
-
-const ProductList = styled.button`
-  background-color: white;
-  width: 16rem;
-  height: 15rem;
-  border-radius: 2rem;
+const Section = styled.div`
+  height: 50%;
+  border: 1px solid black;
 `;
