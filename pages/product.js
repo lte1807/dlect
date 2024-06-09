@@ -5,19 +5,22 @@ import { Canvas } from "@react-three/fiber";
 import Image from "next/image";
 import { Suspense, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
-import { useSpring} from "@react-spring/three";
+import { useSpring } from "@react-spring/three";
 import Scene from "@/components/models/Scene";
 import resetIcon from "../public/img/return.png";
-
 
 function Product() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [model, setModel] = useState("");
   const [layer, setLayer] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(false);
-  const [{ position, scale, rotation }, set] = useSpring(() => ({ position: [0, 0, 0], scale: [1, 1, 1], rotation: [0,0,0]}));
+  const [{ position, scale, rotation }, set] = useSpring(() => ({
+    position: [0, 0, 0],
+    scale: [1, 1, 1],
+    rotation: [0, 0, 0],
+  }));
   const childRef = useRef();
-  
+
   const handleModelLoaded = () => {
     setModelLoaded(true);
   };
@@ -26,7 +29,7 @@ function Product() {
     setActiveIndex(index);
   };
 
-  const zoomToPosition = (newPosition , newScale) => {
+  const zoomToPosition = (newPosition, newScale) => {
     set({ position: newPosition, scale: newScale, config: { duration: 500 } });
   };
 
@@ -37,56 +40,66 @@ function Product() {
 
   const layerClickEvent = () => {
     setLayer(!layer);
-  }
+  };
 
-    // 카메라 위치를 초기화하는 함수
+  // 카메라 위치를 초기화하는 함수
   const resetCameraPosition = () => {
     // reset 함수 호출
-    set({position: [0,0,0], scale: [1, 1, 1], rotation: [0,0,0], config: {duration: 500}});
+    set({
+      position: [0, 0, 0],
+      scale: [1, 1, 1],
+      rotation: [0, 0, 0],
+      config: { duration: 500 },
+    });
     childRef.current.resetClick();
   };
 
   const menuArr = [
     { name: "SELECT", component: <Select updateModel={onSetModel} /> },
     { name: "CHECK", component: <Check /> },
-    { name: "SHOW", component: <Show /> },
   ];
   return (
     <Container>
       <Section>
-      <Model>
-      <Suspense fallback={(
-                <LoadingOverlay>
-                  <LoadingSpinner />
-                  <LoadingText>Loading...</LoadingText>
-                </LoadingOverlay>
-              )}>
-          <Canvas camera={{ fov: 100 }} style={{ background: "#e6e6e5" }}>
+        <Model>
+          <Suspense
+            fallback={
+              <LoadingOverlay>
+                <LoadingSpinner />
+                <LoadingText>Loading...</LoadingText>
+              </LoadingOverlay>
+            }
+          >
+            <Canvas camera={{ fov: 100 }} style={{ background: "#e6e6e5" }}>
               <Scene
                 ref={childRef}
                 position={position}
                 scale={scale}
                 rotation={rotation}
                 model={model}
-                resetCameraPosition = {resetCameraPosition}
+                resetCameraPosition={resetCameraPosition}
                 handleModelLoaded={handleModelLoaded}
                 layer={layer}
               />
             </Canvas>
             <RotateResetBtn onClick={resetCameraPosition}>
-              <Image width={25} height={25} alt="reset" src={resetIcon}/>
+              <Image width={25} height={25} alt="reset" src={resetIcon} />
             </RotateResetBtn>
             <ToggleSwitch onClick={layerClickEvent} SwitchOnOff={layer}>
-              <SwithchBall SwitchOnOff={layer}/>
+              <SwithchBall SwitchOnOff={layer} />
             </ToggleSwitch>
-        </Suspense>
+          </Suspense>
         </Model>
       </Section>
       <Section>
         <Menu>
           <TabMenu>
             {menuArr.map((menu, index) => (
-              <MenuStyle clicked={activeIndex === index} key={index} onClick={() => ClickMenu(index)}>
+              <MenuStyle
+                clicked={activeIndex === index}
+                key={index}
+                onClick={() => ClickMenu(index)}
+              >
                 {menu.name}
               </MenuStyle>
             ))}
@@ -104,8 +117,6 @@ function Product() {
 
 export default Product;
 
-
-
 const toggleOnAnimation = keyframes`
   from {
     background: white;
@@ -116,7 +127,7 @@ const toggleOnAnimation = keyframes`
     background: #000000;
     
   }
-`
+`;
 
 const toggleOffAnimation = keyframes`
   from {
@@ -126,7 +137,7 @@ const toggleOffAnimation = keyframes`
   to {
     background: white;
   }
-`
+`;
 
 const switchOnAnimation = keyframes`
   from {
@@ -138,8 +149,7 @@ const switchOnAnimation = keyframes`
     background: white;
     transform: translateX(20px);
   }
-`
-
+`;
 
 const switchOffAnimation = keyframes`
   from {
@@ -152,7 +162,7 @@ const switchOffAnimation = keyframes`
     
     transform: translateX(0px);
   }
-`
+`;
 
 const Container = styled.div`
   width: 100%;
@@ -162,7 +172,6 @@ const Container = styled.div`
 const Section = styled.div`
   width: 100%;
   height: 50%;
-  
 `;
 
 const Menu = styled.div`
@@ -175,7 +184,7 @@ const Menu = styled.div`
 const TabMenu = styled.div`
   display: flex;
   flex-basis: 8%;
-  justify-content: space-around;
+  justify-content: center;
   gap: 2rem;
   margin-top: 10px;
 `;
@@ -186,24 +195,27 @@ const MenuStyle = styled.button`
   border-radius: 1rem;
   padding: 0.5rem 2rem;
   background-color: white;
-  ${props => props.clicked && css`
-      top:5px;
-      box-shadow: 0 4px 3px 1px #FCFCFC inset;
+  ${(props) =>
+    props.clicked &&
+    css`
+      top: 5px;
+      box-shadow: 0 4px 3px 1px #fcfcfc inset;
       border: 0.5px solid #eeeeee;
-      margin-right:-2px;
-  `
-  }
-  
+      margin-right: -2px;
+    `}
 `;
 
 const SelectItems = styled.div`
   flex-basis: 80%;
 `;
 const CtaButton = styled.div`
+  position: sticky;
   display: flex;
   justify-content: center;
   gap: 2rem;
   flex-basis: 12%;
+  bottom: 0;
+  z-index: 1000;
 `;
 
 const CtaButtonStyle = styled.button`
@@ -224,7 +236,6 @@ const Model = styled.div`
   height: 100%;
 `;
 
-
 const RotateResetBtn = styled.div`
   width: 3.5rem;
   height: 3.5rem;
@@ -237,7 +248,7 @@ const RotateResetBtn = styled.div`
   bottom: 50px;
   right: 27px;
   z-index: 1;
-`
+`;
 
 const LoadingOverlay = styled.div`
   position: absolute;
@@ -279,13 +290,25 @@ const ToggleSwitch = styled.div`
   background: white;
   border-radius: 2rem;
   animation: ${(props) =>
-    props.SwitchOnOff ? css`${toggleOnAnimation} 1s forwards` : css`${toggleOffAnimation} 1s forwards`};
-`
+    props.SwitchOnOff
+      ? css`
+          ${toggleOnAnimation} 1s forwards
+        `
+      : css`
+          ${toggleOffAnimation} 1s forwards
+        `};
+`;
 
 const SwithchBall = styled.div`
   width: 18px;
   height: 18px;
   border-radius: 50%;
   animation: ${(props) =>
-    props.SwitchOnOff ? css`${switchOnAnimation} 1s forwards` : css`${switchOffAnimation} 1s forwards`};
-`
+    props.SwitchOnOff
+      ? css`
+          ${switchOnAnimation} 1s forwards
+        `
+      : css`
+          ${switchOffAnimation} 1s forwards
+        `};
+`;

@@ -1,13 +1,22 @@
 import Link from "next/link";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-function SideMenu() {
+function SideMenu({ ActiveState }) {
   return (
     <Container>
       <Wrapper>
-        <Link href="/login">로그인</Link>
-        <Link href="/signup">회원가입</Link>
-        <Link href="/provision">이용약관</Link>
+        <LinkBtn>
+          <Link href="/login" onClick={ActiveState}>
+            로그인
+          </Link>
+          <Link href="/signup" onClick={ActiveState}>
+            회원가입
+          </Link>
+          <Link href="/provision" onClick={ActiveState}>
+            이용약관
+          </Link>
+        </LinkBtn>
+
         <Introdution>
           COMPANY :HIRAETH
           <br />
@@ -43,10 +52,19 @@ const Container = styled.div`
 const Wrapper = styled.div`
   background-color: white;
   width: 400px;
-  height: 100%;
+  height: 93%;
   display: flex;
   flex-direction: column;
-  padding: 0 1rem;
+  justify-content: space-between;
+  padding: 2rem;
+`;
+
+const LinkBtn = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 2.5rem;
+  gap: 1rem;
 `;
 
 const Introdution = styled.div`
