@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { styled } from "styled-components";
 
@@ -5,8 +6,12 @@ function list() {
   return (
     <Container>
       <Wrapper>
-        <Section></Section>
-        <Section></Section>
+        <Link href="/product">
+          <Section></Section>
+        </Link>
+        <Link href="/product">
+          <Section></Section>
+        </Link>
       </Wrapper>
     </Container>
   );
